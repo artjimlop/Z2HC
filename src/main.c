@@ -90,5 +90,7 @@ int main(void)
     kv_t *table = kv_init(3);
     kv_put(table, "color", "red");
     printf("%s\n", kv_get(table, "color"));
+    kv_delete(table, "color");
+    printf("%s\n", kv_get(table, "color"));
     return tests_failed == 0 ? 0 : 1;
 }
