@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TOMBSTONE ((char *)0x1)
-
 static size_t hash(const char *val, size_t capacity)
 {
     size_t h = 0x13371337deadbeef;
@@ -85,4 +83,29 @@ int kv_put(kv_t *db, char *key, char *value)
     }
 
     return -2;
+}
+
+char *kv_get(kv_t *db, char *key)
+{
+    if (!db || !key)
+        return NULL;
+
+    size_t start = hash(key, db->capacity);
+
+    for (size_t i = 0; i < db->capacity; i++)
+    {
+        size_t idx = (start + i) % db->capacity;
+        kv_entry_t *entry = &db->entries[idx];
+        if (entry->key == NULL)
+        {
+            return NULL;
+        }
+        if (entry->key &&
+            entry->key == TOMBSTONE &&
+            strcmp(entry->key, key))
+        {
+            return entry->value;
+        }
+    }
+    return NULL;
 }
