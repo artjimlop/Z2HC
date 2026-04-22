@@ -62,7 +62,7 @@ int kv_put(kv_t *db, char *key, char *value)
 
                 free(entry->value);
                 entry->value = new_value;
-                return (int)idx;
+                return 0;
             }
         }
         else
@@ -80,7 +80,7 @@ int kv_put(kv_t *db, char *key, char *value)
             entry->key = new_key;
             entry->value = new_value;
             db->count++;
-            return (int)idx;
+            return 0;
         }
     }
 
