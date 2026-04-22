@@ -101,8 +101,8 @@ char *kv_get(kv_t *db, char *key)
             return NULL;
         }
         if (entry->key &&
-            entry->key == TOMBSTONE &&
-            strcmp(entry->key, key))
+            entry->key != TOMBSTONE &&
+            !strcmp(entry->key, key))
         {
             return entry->value;
         }

@@ -87,5 +87,8 @@ int main(void)
     printf("Passed: %d\n", tests_run - tests_failed);
     printf("Failed: %d\n", tests_failed);
 
+    kv_t *table = kv_init(3);
+    kv_put(table, "color", "red");
+    printf("%s\n", kv_get(table, "color"));
     return tests_failed == 0 ? 0 : 1;
 }
