@@ -92,5 +92,6 @@ int main(void)
     printf("%s\n", kv_get(table, "color"));
     kv_delete(table, "color");
     printf("%s\n", kv_get(table, "color"));
+    kv_free(table);
     return tests_failed == 0 ? 0 : 1;
 }

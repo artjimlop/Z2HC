@@ -139,3 +139,21 @@ int kv_delete(kv_t *db, char *key)
     }
     return -1;
 }
+
+int kv_free(kv_t *db) {
+    if(!db) return -1;
+
+    for(int i = 0; i < db->capacity; i++) {
+        kv_entry_t *e = &db->entries[i];
+        if(e->key && e->key != (void*) TOMBSTONE) {
+            free(e->key);
+            free(e->value);
+            e->key = NULL;
+            e->value = NULL;
+            db->count--;
+        }
+    }
+    free(db->entries);
+    free(db);
+    return 0;
+}
