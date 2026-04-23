@@ -1,6 +1,7 @@
 #include <kv.h>
 #include <stdlib.h>
 #include <string.h>
+#define TOMBSTONE ((char *)0x1)
 
 static size_t hash(const char *val, size_t capacity)
 {
